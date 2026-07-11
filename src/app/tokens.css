@@ -1,0 +1,246 @@
+/* =============================================================================
+ * Boardspace — Apple-grade Design Tokens
+ *
+ * Source of truth: Apple HIG (Liquid Glass, systemBlue, systemGray6, etc.).
+ * Type: Geist (Vercel's SF-Pro successor, MIT-licensed).
+ * Accent: Apple systemBlue (#007AFF light / #0A84FF dark) — never gold.
+ *
+ * Apple-grade means restraint. Gold/saturated color appears nowhere except
+ * on the brand wordmark and the primary CTA. Everything else is grayscale
+ * with systemBlue for interactive moments.
+ * ============================================================================= */
+
+:root {
+  /* ---- Surface ramp (Apple systemGray6 + label hierarchy) ---- */
+  --bg-canvas:    #FFFFFF;
+  --bg-elevated:  #F2F2F7;
+  --bg-raised:    #FFFFFF;
+  --bg-sunken:    #F9F9F9;
+  --bg-overlay:   rgba(0, 0, 0, 0.04);
+
+  /* Foreground — text on surfaces */
+  --fg-primary:    #1C1C1E;
+  --fg-secondary:  rgba(60, 60, 67, 0.60);
+  --fg-tertiary:   rgba(60, 60, 67, 0.30);
+  --fg-quaternary: rgba(60, 60, 67, 0.18);
+
+  /* ---- Accent: Apple systemBlue (light) ---- */
+  --accent-50:   #E5F1FF;  /* tint bg */
+  --accent-100:  #CCE4FF;  /* hover tint */
+  --accent-300:  #4DA3FF;  /* pressed */
+  --accent-400:  #007AFF;  /* primary accent — Apple systemBlue */
+  --accent-500:  #006FE6;  /* pressed deeper */
+  --accent-600:  #0062CC;
+  --accent-700:  #004999;  /* text on tint */
+
+  /* ---- Semantic colors (Apple systemRed/Orange/Green/Blue) ---- */
+  --danger:   #FF3B30;
+  --warn:     #FF9500;
+  --success:  #34C759;
+  --info:     #007AFF;
+  --danger-bg:   #FFE5E2;
+  --warn-bg:     #FFF1D9;
+  --success-bg:  #DFF5E1;
+  --info-bg:     #E0EEFF;
+
+  /* ---- Separators (Apple HIG exact) ---- */
+  --sep-hairline: rgba(0, 0, 0, 0.10);
+  --sep-standard: rgba(0, 0, 0, 0.20);
+  --sep-bold:     rgba(0, 0, 0, 0.30);
+  --border:        var(--sep-hairline);
+
+  /* ---- Spacing (4-based scale, Apple HIG) ---- */
+  --s-0:  0;
+  --s-2:  2px;
+  --s-4:  4px;
+  --s-8:  8px;
+  --s-12: 12px;
+  --s-16: 16px;
+  --s-20: 20px;
+  --s-24: 24px;
+  --s-32: 32px;
+  --s-40: 40px;
+  --s-48: 48px;
+  --s-56: 56px;
+  --s-64: 64px;
+
+  /* ---- Radius (5-step scale + pill) ---- */
+  --r-sm:   4px;
+  --r-md:   8px;
+  --r-lg:   12px;
+  --r-xl:   16px;
+  --r-2xl:  24px;
+  --r-pill: 9999px;
+
+  /* ---- Motion (Apple spring + decel) ---- */
+  --dur-instant: 120ms;
+  --dur-quick:   180ms;
+  --dur-base:    240ms;
+  --dur-medium:  300ms;
+  --dur-slow:    420ms;
+  --dur-extra:   600ms;
+
+  --ease-standard:   cubic-bezier(0.28, 0.11, 0.32, 1);
+  --ease-decel:       cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-accel:       cubic-bezier(0.4, 0, 1, 1);
+  --ease-soft:        cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* ---- Elevation (Apple's subtle alpha-based shadows) ---- */
+  --sh-0: none;
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --sh-2: 0 2px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --sh-3: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --sh-4: 0 12px 24px rgba(0, 0, 0, 0.10), 0 4px 8px rgba(0, 0, 0, 0.06);
+  --sh-5: 0 24px 48px rgba(0, 0, 0, 0.16), 0 8px 16px rgba(0, 0, 0, 0.08);
+
+  /* ---- Translucency recipes (Liquid Glass) ---- */
+  --glass-toolbar: rgba(255, 255, 255, 0.72);
+  --glass-sidebar: rgba(242, 242, 247, 0.78);
+  --glass-sheet:   rgba(255, 255, 255, 0.86);
+  --glass-blur-20: blur(20px) saturate(180%);
+  --glass-blur-30: blur(30px) saturate(180%);
+  --glass-blur-40: blur(40px) saturate(180%);
+
+  /* ---- Typography sizes / line heights / letter-spacing ---- */
+  --t-largeTitle: 34px;
+  --t-title1:     28px;
+  --t-title2:     22px;
+  --t-title3:     20px;
+  --t-headline:   17px;
+  --t-body:       17px;
+  --t-callout:    16px;
+  --t-subhead:    15px;
+  --t-footnote:   13px;
+  --t-caption1:   12px;
+  --t-caption2:   11px;
+
+  /* Semantic aliases (Boardspace components use these) */
+  --bg-primary:   var(--bg-canvas);
+  --bg-surface:   var(--bg-elevated);
+  --bg-surface-2: var(--bg-sunken);
+  --text:         var(--fg-primary);
+  --text-muted:   var(--fg-secondary);
+  --text-subtle:  var(--fg-tertiary);
+  --border-strong: var(--sep-standard);
+
+  /* Touch target — Apple HIG 44pt */
+  --touch-target: 44px;
+}
+
+[data-theme="dark"],
+.dark,
+:root:not([data-theme="light"]):not(.light) {
+  /* On dark: pure black canvas (OLED-friendly), elevated surfaces step up */
+  --bg-canvas:    #000000;
+  --bg-elevated:  #1C1C1E;
+  --bg-raised:    #2C2C2E;
+  --bg-sunken:    #1C1C1E;
+  --bg-overlay:   rgba(255, 255, 255, 0.08);
+
+  --fg-primary:    #FFFFFF;
+  --fg-secondary:  rgba(235, 235, 245, 0.60);
+  --fg-tertiary:   rgba(235, 235, 245, 0.30);
+  --fg-quaternary: rgba(235, 235, 245, 0.18);
+
+  /* Accent — Apple systemBlue dark mode (slightly brighter) */
+  --accent-50:   #0A1F3A;  /* dark tint bg */
+  --accent-100:  #0A2547;  /* dark hover tint */
+  --accent-300:  #4DA3FF;
+  --accent-400:  #0A84FF;  /* primary accent — Apple systemBlue dark */
+  --accent-500:  #006FE6;
+  --accent-600:  #0062CC;
+  --accent-700:  #99CCFF;  /* text on dark tint */
+
+  /* Semantic */
+  --danger:   #FF453A;
+  --warn:     #FF9F0A;
+  --success:  #30D158;
+  --info:     #0A84FF;
+  --danger-bg:   #3A1A1A;
+  --warn-bg:     #3A2A0A;
+  --success-bg:  #0F2A1A;
+  --info-bg:     #0A1F3A;
+
+  --sep-hairline: rgba(255, 255, 255, 0.10);
+  --sep-standard: rgba(255, 255, 255, 0.16);
+  --sep-bold:     rgba(255, 255, 255, 0.24);
+  --border:        var(--sep-hairline);
+
+  /* Shadows — heavier alpha for visibility on dark */
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --sh-2: 0 2px 4px rgba(0, 0, 0, 0.50), 0 1px 1px rgba(0, 0, 0, 0.30);
+  --sh-3: 0 6px 12px rgba(0, 0, 0, 0.60), 0 2px 4px rgba(0, 0, 0, 0.40);
+  --sh-4: 0 12px 24px rgba(0, 0, 0, 0.70), 0 4px 8px rgba(0, 0, 0, 0.50);
+  --sh-5: 0 24px 48px rgba(0, 0, 0, 0.80), 0 8px 16px rgba(0, 0, 0, 0.60);
+
+  /* Translucency — dark glass is darker base + same blur */
+  --glass-toolbar: rgba(28, 28, 30, 0.72);
+  --glass-sidebar: rgba(28, 28, 30, 0.80);
+  --glass-sheet:   rgba(44, 44, 46, 0.86);
+}
+
+[data-theme="light"],
+.light {
+  /* Force the light palette even when system prefers dark. */
+  --bg-canvas:    #FFFFFF;
+  --bg-elevated:  #F2F2F7;
+  --bg-raised:    #FFFFFF;
+  --bg-sunken:    #F9F9F9;
+  --bg-overlay:   rgba(0, 0, 0, 0.04);
+
+  --fg-primary:    #1C1C1E;
+  --fg-secondary:  rgba(60, 60, 67, 0.60);
+  --fg-tertiary:   rgba(60, 60, 67, 0.30);
+  --fg-quaternary: rgba(60, 60, 67, 0.18);
+
+  --accent-50:   #E5F1FF;
+  --accent-100:  #CCE4FF;
+  --accent-300:  #4DA3FF;
+  --accent-400:  #007AFF;
+  --accent-500:  #006FE6;
+  --accent-600:  #0062CC;
+  --accent-700:  #004999;
+
+  --danger:   #FF3B30;
+  --warn:     #FF9500;
+  --success:  #34C759;
+  --info:     #007AFF;
+  --danger-bg:   #FFE5E2;
+  --warn-bg:     #FFF1D9;
+  --success-bg:  #DFF5E1;
+  --info-bg:     #E0EEFF;
+
+  --sep-hairline: rgba(0, 0, 0, 0.10);
+  --sep-standard: rgba(0, 0, 0, 0.20);
+  --sep-bold:     rgba(0, 0, 0, 0.30);
+  --border:        var(--sep-hairline);
+
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.04);
+  --sh-2: 0 2px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --sh-3: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --sh-4: 0 12px 24px rgba(0, 0, 0, 0.10), 0 4px 8px rgba(0, 0, 0, 0.06);
+  --sh-5: 0 24px 48px rgba(0, 0, 0, 0.16), 0 8px 16px rgba(0, 0, 0, 0.08);
+
+  --glass-toolbar: rgba(255, 255, 255, 0.72);
+  --glass-sidebar: rgba(242, 242, 247, 0.78);
+  --glass-sheet:   rgba(255, 255, 255, 0.86);
+}
+
+/* ===== Reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== Reduced transparency — replace glass with solid ===== */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-toolbar: var(--bg-elevated);
+    --glass-sidebar: var(--bg-elevated);
+    --glass-sheet:   var(--bg-raised);
+  }
+}

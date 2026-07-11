@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="etGold" x1="0" y1="0" x2="200" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#007AFF"/>
+      <stop offset="0.5" stop-color="#4DA3FF"/>
+      <stop offset="1" stop-color="#006FE6"/>
+    </linearGradient>
+    <linearGradient id="etGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b53e8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5b53e8" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- background panel -->
+  <rect x="10" y="14" width="180" height="116" rx="14" fill="url(#etGrad)" stroke="#5b53e8" stroke-opacity="0.25"/>
+
+  <!-- trash can body -->
+  <g>
+    <!-- lid -->
+    <rect x="68" y="38" width="64" height="8" rx="3" fill="url(#etGold)" opacity="0.95"/>
+    <!-- lid handle -->
+    <rect x="92" y="32" width="16" height="6" rx="3" fill="url(#etGold)" opacity="0.95"/>
+    <!-- can body (with subtle perspective via top/bottom widths) -->
+    <path d="M72 50 L128 50 L122 102 L78 102 Z" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-opacity="0.55" stroke-width="2" stroke-linejoin="round"/>
+    <!-- inner shine lines on can -->
+    <line x1="88" y1="62" x2="86" y2="92" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="100" y1="62" x2="100" y2="92" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="112" y1="62" x2="114" y2="92" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- check badge (clean / empty confirmation) -->
+  <g>
+    <!-- soft halo -->
+    <circle cx="142" cy="40" r="14" fill="url(#etGold)" opacity="0.18"/>
+    <circle cx="142" cy="40" r="10" fill="url(#etGold)"/>
+    <!-- check mark -->
+    <path d="M137 40.5 L141 44.5 L147.5 37.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- sparkles (it's clean!) -->
+  <g fill="url(#etGold)">
+    <!-- sparkle top-left of trash -->
+    <path d="M58 30 L59.5 33.5 L63 35 L59.5 36.5 L58 40 L56.5 36.5 L53 35 L56.5 33.5 Z" opacity="0.85"/>
+    <!-- sparkle right of can -->
+    <path d="M150 76 L151.2 78.8 L154 80 L151.2 81.2 L150 84 L148.8 81.2 L146 80 L148.8 78.8 Z" opacity="0.75"/>
+    <!-- sparkle bottom-left -->
+    <path d="M48 96 L49 98.5 L51.5 99.5 L49 100.5 L48 103 L47 100.5 L44.5 99.5 L47 98.5 Z" opacity="0.65"/>
+  </g>
+
+  <!-- subtle smile / dotted "swept clean" floor line under the can -->
+  <g stroke="currentColor" stroke-opacity="0.30" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1 4">
+    <line x1="74" y1="110" x2="126" y2="110"/>
+  </g>
+</svg>

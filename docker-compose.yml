@@ -1,0 +1,54 @@
+services:
+  boardspace:
+    build: .
+    image: boardspace:latest
+    container_name: boardspace
+    restart: unless-stopped
+
+    # Bind to loopback only. Cloudflare Tunnel (cloudflared) runs alongside and
+    # connects to 127.0.0.1:3000 — the app is never exposed on the LAN/WAN.
+    ports:
+      - "127.0.0.1:3000:3000"
+
+    # Optional — the app runs with zero configuration. Create a .env only if you
+    # want to set ALLOWED_ORIGINS / TRUSTED_PROXY_SECRET / a fixed SESSION_SECRET.
+    env_file:
+      - path: .env
+        required: false
+
+    volumes:
+      - board-data:/app/data
+
+    # ---- hardening --------------------------------------------------------
+    read_only: true                 # immutable root filesystem
+    tmpfs:
+      - /tmp
+      - /app/.next/cache
+    security_opt:
+      - no-new-privileges:true      # block privilege escalation
+    cap_drop:
+      - ALL                         # drop all Linux capabilities
+    # -----------------------------------------------------------------------
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://127.0.0.1:3000/api/health',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  board-data:
+    driver: local

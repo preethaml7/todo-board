@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="esSearchGold" x1="0" y1="0" x2="200" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#007AFF"/>
+      <stop offset="0.5" stop-color="#4DA3FF"/>
+      <stop offset="1" stop-color="#006FE6"/>
+    </linearGradient>
+    <linearGradient id="esSearchGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b53e8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5b53e8" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- soft empty-results panel -->
+  <rect x="10" y="14" width="180" height="116" rx="14" fill="url(#esSearchGrad)" stroke="#5b53e8" stroke-opacity="0.25"/>
+
+  <!-- faint result rows that fade away -->
+  <g opacity="0.42">
+    <rect x="28" y="36" width="54" height="8" rx="4" fill="currentColor" opacity="0.10"/>
+    <rect x="28" y="50" width="42" height="6" rx="3" fill="currentColor" opacity="0.08"/>
+    <rect x="118" y="88" width="48" height="8" rx="4" fill="currentColor" opacity="0.10"/>
+    <rect x="130" y="102" width="36" height="6" rx="3" fill="currentColor" opacity="0.08"/>
+  </g>
+
+  <!-- magnifying glass -->
+  <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="95" cy="66" r="30" stroke-width="6" opacity="0.78"/>
+    <line x1="117" y1="88" x2="139" y2="110" stroke-width="7" opacity="0.78"/>
+  </g>
+
+  <!-- sad empty-search face inside lens -->
+  <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" opacity="0.58">
+    <circle cx="84" cy="61" r="2.5" fill="currentColor" stroke="none"/>
+    <circle cx="105" cy="61" r="2.5" fill="currentColor" stroke="none"/>
+    <path d="M84 78c5-6 16-6 22 0" stroke-width="3"/>
+  </g>
+
+  <!-- gold no-results slash accent -->
+  <line x1="69" y1="93" x2="121" y2="39" stroke="url(#esSearchGold)" stroke-width="7" stroke-linecap="round"/>
+  <line x1="69" y1="93" x2="121" y2="39" stroke="#fff" stroke-opacity="0.35" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- tiny gold sparkle accent -->
+  <g stroke="url(#esSearchGold)" stroke-linecap="round" stroke-width="2.5">
+    <line x1="153" y1="35" x2="153" y2="45"/>
+    <line x1="148" y1="40" x2="158" y2="40"/>
+  </g>
+</svg>

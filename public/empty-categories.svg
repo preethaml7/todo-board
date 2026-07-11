@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="esCatGold" x1="0" y1="0" x2="200" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#007AFF"/>
+      <stop offset="0.5" stop-color="#4DA3FF"/>
+      <stop offset="1" stop-color="#006FE6"/>
+    </linearGradient>
+    <linearGradient id="esCatGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b53e8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5b53e8" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- soft panel -->
+  <rect x="10" y="14" width="180" height="116" rx="14" fill="url(#esCatGrad)" stroke="#5b53e8" stroke-opacity="0.25"/>
+
+  <!-- empty tag-shaped pills with dashed borders -->
+  <g>
+    <!-- pill 1 -->
+    <path d="M24 58 L52 58 A10 10 0 0 1 62 68 L62 72 A10 10 0 0 1 52 82 L24 82 A10 10 0 0 1 14 72 L14 68 A10 10 0 0 1 24 58 Z"
+          fill="currentColor" fill-opacity="0.06"
+          stroke="currentColor" stroke-opacity="0.30" stroke-dasharray="3 3" stroke-width="1.4"/>
+    <!-- pill 2 (centered, with subtle gold tint to be the "first one") -->
+    <path d="M84 58 L116 58 A10 10 0 0 1 126 68 L126 72 A10 10 0 0 1 116 82 L84 82 A10 10 0 0 1 74 72 L74 68 A10 10 0 0 1 84 58 Z"
+          fill="url(#esCatGold)" fill-opacity="0.18"
+          stroke="url(#esCatGold)" stroke-opacity="0.55" stroke-dasharray="3 3" stroke-width="1.4"/>
+    <!-- pill 3 -->
+    <path d="M148 58 L176 58 A10 10 0 0 1 186 68 L186 72 A10 10 0 0 1 176 82 L148 82 A10 10 0 0 1 138 72 L138 68 A10 10 0 0 1 148 58 Z"
+          fill="currentColor" fill-opacity="0.06"
+          stroke="currentColor" stroke-opacity="0.30" stroke-dasharray="3 3" stroke-width="1.4"/>
+  </g>
+
+  <!-- tiny placeholder label dots inside each pill -->
+  <g fill="currentColor" opacity="0.35">
+    <circle cx="22" cy="70" r="1.6"/>
+    <circle cx="148" cy="70" r="1.6"/>
+  </g>
+  <g fill="url(#esCatGold)" opacity="0.85">
+    <circle cx="82" cy="70" r="1.8"/>
+  </g>
+
+  <!-- "add your first" plus button (gold) below the row -->
+  <circle cx="100" cy="108" r="13" fill="url(#esCatGold)"/>
+  <line x1="100" y1="103" x2="100" y2="113" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="95" y1="108" x2="105" y2="108" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- subtle dotted connector hint above the plus -->
+  <g stroke="currentColor" stroke-opacity="0.25" stroke-linecap="round" stroke-dasharray="1.5 2.5">
+    <line x1="100" y1="92" x2="100" y2="98"/>
+  </g>
+
+  <!-- tiny sparkle accents -->
+  <g stroke="url(#esCatGold)" stroke-linecap="round" stroke-width="1.8" opacity="0.85">
+    <line x1="30" y1="36" x2="30" y2="42"/>
+    <line x1="27" y1="39" x2="33" y2="39"/>
+  </g>
+  <g stroke="url(#esCatGold)" stroke-linecap="round" stroke-width="1.8" opacity="0.85">
+    <line x1="170" y1="98" x2="170" y2="104"/>
+    <line x1="167" y1="101" x2="173" y2="101"/>
+  </g>
+</svg>

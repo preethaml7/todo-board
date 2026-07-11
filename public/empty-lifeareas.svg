@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="esLaGold" x1="0" y1="0" x2="200" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#007AFF"/>
+      <stop offset="0.5" stop-color="#4DA3FF"/>
+      <stop offset="1" stop-color="#006FE6"/>
+    </linearGradient>
+    <linearGradient id="esLaGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b53e8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5b53e8" stop-opacity="0.04"/>
+    </linearGradient>
+    <radialGradient id="esLaDot" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#4DA3FF"/>
+      <stop offset="0.6" stop-color="#007AFF"/>
+      <stop offset="1" stop-color="#006FE6"/>
+    </radialGradient>
+  </defs>
+
+  <!-- soft panel -->
+  <rect x="10" y="14" width="180" height="116" rx="14" fill="url(#esLaGrad)" stroke="#5b53e8" stroke-opacity="0.25"/>
+
+  <!-- three concentric rings (work / personal / admin) -->
+  <g stroke="currentColor" fill="none" stroke-linecap="round">
+    <!-- outer ring: work -->
+    <circle cx="100" cy="70" r="44"
+            stroke-opacity="0.30"
+            stroke-dasharray="5 4"
+            stroke-width="1.4"/>
+    <circle cx="100" cy="70" r="44"
+            stroke="#5b53e8" stroke-opacity="0.18"
+            stroke-width="1"
+            fill="#5b53e8" fill-opacity="0.04"/>
+
+    <!-- middle ring: personal -->
+    <circle cx="100" cy="70" r="28"
+            stroke-opacity="0.45"
+            stroke-dasharray="4 3"
+            stroke-width="1.4"/>
+    <circle cx="100" cy="70" r="28"
+            stroke="#5b53e8" stroke-opacity="0.28"
+            stroke-width="1"
+            fill="#5b53e8" fill-opacity="0.08"/>
+
+    <!-- inner ring: admin (closest to core) -->
+    <circle cx="100" cy="70" r="14"
+            stroke-opacity="0.60"
+            stroke-dasharray="3 2"
+            stroke-width="1.4"/>
+    <circle cx="100" cy="70" r="14"
+            stroke="#5b53e8" stroke-opacity="0.35"
+            stroke-width="1"
+            fill="#5b53e8" fill-opacity="0.10"/>
+  </g>
+
+  <!-- centered gold dot (the "you" at the core) -->
+  <circle cx="100" cy="70" r="5.5" fill="url(#esLaDot)"/>
+  <circle cx="100" cy="70" r="9" fill="none" stroke="url(#esLaGold)" stroke-opacity="0.45" stroke-width="1"/>
+
+  <!-- ring label hints: tiny gold dots on each ring -->
+  <g fill="url(#esLaGold)">
+    <circle cx="100" cy="26" r="2.2"/>     <!-- top of outer ring -->
+    <circle cx="100" cy="42" r="1.8"/>     <!-- top of middle ring -->
+    <circle cx="100" cy="56" r="1.4"/>     <!-- top of inner ring -->
+  </g>
+
+  <!-- subtle ring tick marks (3 around outer) to suggest distinct domains -->
+  <g stroke="currentColor" stroke-opacity="0.30" stroke-linecap="round" stroke-width="1.2">
+    <line x1="56" y1="70" x2="50" y2="70"/>
+    <line x1="144" y1="70" x2="150" y2="70"/>
+    <line x1="100" y1="114" x2="100" y2="120"/>
+  </g>
+
+  <!-- tiny sparkle accents -->
+  <g stroke="url(#esLaGold)" stroke-linecap="round" stroke-width="1.8" opacity="0.85">
+    <line x1="28" y1="34" x2="28" y2="40"/>
+    <line x1="25" y1="37" x2="31" y2="37"/>
+  </g>
+  <g stroke="url(#esLaGold)" stroke-linecap="round" stroke-width="1.8" opacity="0.85">
+    <line x1="172" y1="100" x2="172" y2="106"/>
+    <line x1="169" y1="103" x2="175" y2="103"/>
+  </g>
+</svg>

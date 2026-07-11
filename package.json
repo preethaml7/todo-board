@@ -1,0 +1,63 @@
+{
+  "name": "boardspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A single-user, password-locked task board with a Kanban workflow, SQLite storage, and security-first design.",
+  "scripts": {
+    "predev": "tsx scripts/init-secret.ts",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "reset-password": "tsx scripts/reset-password.ts",
+    "whoami": "tsx scripts/whoami.ts",
+    "init-secret": "tsx scripts/init-secret.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "adm-zip": "^0.5.18",
+    "argon2": "^0.44.0",
+    "better-sqlite3": "^12.2.0",
+    "lucide-react": "^0.475.0",
+    "motion": "^12.23.0",
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/adm-zip": "^0.5.8",
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^15.5.0",
+    "jsdom": "^29.1.1",
+    "tailwindcss": "^4.1.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.9"
+  },
+  "//allowScripts": "Supply-chain hardening: only these vetted packages may run install/postinstall scripts; all others are blocked by npm.",
+  "allowScripts": {
+    "argon2@0.44.0": true,
+    "better-sqlite3@12.11.1": true,
+    "sharp@0.34.5": true,
+    "esbuild@0.28.1": true,
+    "esbuild@0.21.5": true,
+    "unrs-resolver@1.12.2": true,
+    "fsevents@2.3.3": true
+  }
+}

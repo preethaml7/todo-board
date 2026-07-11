@@ -1,0 +1,107 @@
+/* WeekStrip — compact 7-day mini calendar */
+
+.strip {
+  display: grid;
+  grid-template-columns: auto repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.day:hover:not(.selected) {
+  background: var(--surface-hover);
+}
+
+.day.today {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.day.selected {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+
+.day.selected .dayLabel,
+.day.selected .dayDate {
+  color: var(--accent-text);
+}
+
+.dayLabel {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.dayDate {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 2px;
+  min-height: 6px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.dotNormal {
+  background: color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+.day.selected .dotNormal {
+  background: color-mix(in srgb, var(--accent-text) 60%, transparent);
+}
+
+.dotOverdue {
+  background: var(--danger);
+}
+
+.day.selected .dotOverdue {
+  background: color-mix(in srgb, var(--accent-text) 85%, var(--danger));
+}
+
+.dotMore {
+  font-size: 9.5px;
+  color: var(--text-subtle);
+  margin-left: 2px;
+}
+
+@media (max-width: 640px) {
+  .strip {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+  .day:first-child {
+    display: none;
+  }
+}

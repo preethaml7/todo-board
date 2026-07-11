@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" aria-label="Boardspace">
+  <!--
+    Boardspace mark — a clean stroke-only outline of three kanban columns
+    sitting on a baseline. Apple-Files-style: monochrome, 1.5px stroke,
+    no fills, no gradients. Uses currentColor so the parent decides the
+    color (black on light theme, white on dark theme).
+  -->
+  <g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Column 1 (Backlog) -->
+    <rect x="14" y="34" width="26" height="60" rx="5" />
+    <line x1="20" y1="48" x2="34" y2="48" />
+    <line x1="20" y1="58" x2="34" y2="58" />
+    <line x1="20" y1="68" x2="30" y2="68" />
+    <!-- Column 2 (In Progress) -->
+    <rect x="47" y="22" width="26" height="72" rx="5" />
+    <line x1="53" y1="36" x2="67" y2="36" />
+    <line x1="53" y1="46" x2="67" y2="46" />
+    <line x1="53" y1="56" x2="64" y2="56" />
+    <line x1="53" y1="66" x2="67" y2="66" />
+    <line x1="53" y1="76" x2="61" y2="76" />
+    <!-- Column 3 (Done) -->
+    <rect x="80" y="44" width="26" height="50" rx="5" />
+    <!-- checkmark inside done -->
+    <path d="M87 67 L93 73 L101 62" stroke-width="2" />
+  </g>
+  <!-- Baseline -->
+  <line x1="6" y1="100" x2="114" y2="100" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.4" />
+</svg>

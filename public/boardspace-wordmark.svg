@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 56" fill="none" aria-label="Boardspace">
+  <!--
+    Boardspace wordmark. Monochrome: currentColor only. No gradients, no
+    decoration. Apple HIG wordmark: regular weight, single hue, the mark
+    sits inline with the text. The mark is the same three-column kanban
+    symbol used in the favicon, scaled to 36×36 to match the cap height.
+  -->
+  <g>
+    <!-- Mark: three stroke-only columns on a baseline -->
+    <g transform="translate(4, 10)" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <rect x="2" y="8" width="9" height="22" rx="2" />
+      <rect x="13" y="2" width="9" height="28" rx="2" />
+      <rect x="24" y="14" width="9" height="16" rx="2" />
+      <line x1="0" y1="34" x2="35" y2="34" opacity="0.4" />
+    </g>
+
+    <!-- Text -->
+    <text x="48" y="38"
+          font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', system-ui, sans-serif"
+          font-size="28"
+          font-weight="600"
+          letter-spacing="-0.6"
+          fill="currentColor">boardspace</text>
+  </g>
+</svg>

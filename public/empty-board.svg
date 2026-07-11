@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="esGold1" x1="0" y1="0" x2="200" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#007AFF"/>
+      <stop offset="0.5" stop-color="#4DA3FF"/>
+      <stop offset="1" stop-color="#006FE6"/>
+    </linearGradient>
+    <linearGradient id="esGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b53e8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5b53e8" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  <!-- board background -->
+  <rect x="10" y="14" width="180" height="116" rx="14" fill="url(#esGrad)" stroke="#5b53e8" stroke-opacity="0.25"/>
+  <!-- three column ghosts -->
+  <rect x="22" y="26" width="46" height="92" rx="6" fill="currentColor" opacity="0.10"/>
+  <rect x="76" y="32" width="46" height="86" rx="6" fill="currentColor" opacity="0.10"/>
+  <rect x="130" y="22" width="48" height="96" rx="6" fill="currentColor" opacity="0.10"/>
+  <!-- one floating gold card (the "next thing" you'll add) -->
+  <g transform="translate(0 -2)">
+    <rect x="80" y="48" width="38" height="42" rx="5" fill="url(#esGold1)" opacity="0.95"/>
+    <rect x="84" y="55" width="22" height="2.5" rx="1" fill="#fff" opacity="0.9"/>
+    <rect x="84" y="61" width="30" height="2" rx="1" fill="#fff" opacity="0.55"/>
+    <rect x="84" y="66" width="26" height="2" rx="1" fill="#fff" opacity="0.40"/>
+    <rect x="84" y="78" width="30" height="6" rx="3" fill="#fff" opacity="0.4"/>
+  </g>
+  <!-- subtle plus icon bottom right -->
+  <circle cx="170" cy="116" r="12" fill="url(#esGold1)"/>
+  <line x1="170" y1="111" x2="170" y2="121" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <line x1="165" y1="116" x2="175" y2="116" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+</svg>

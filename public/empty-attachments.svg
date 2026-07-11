@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="esAttGold" x1="0" y1="0" x2="200" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#007AFF"/>
+      <stop offset="0.5" stop-color="#4DA3FF"/>
+      <stop offset="1" stop-color="#006FE6"/>
+    </linearGradient>
+    <linearGradient id="esAttGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b53e8" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#5b53e8" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+
+  <!-- soft panel -->
+  <rect x="10" y="14" width="180" height="116" rx="14" fill="url(#esAttGrad)" stroke="#5b53e8" stroke-opacity="0.25"/>
+
+  <!-- dashed drop zone (the "drag files here" box) -->
+  <rect x="34" y="32" width="132" height="80" rx="10"
+        fill="#5b53e8" fill-opacity="0.04"
+        stroke="#5b53e8" stroke-opacity="0.35"
+        stroke-dasharray="5 4" stroke-width="1.4"/>
+
+  <!-- subtle corner ticks to emphasize the drop zone -->
+  <g stroke="#5b53e8" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.6">
+    <!-- top-left -->
+    <path d="M34 42 L34 32 L44 32" fill="none"/>
+    <!-- top-right -->
+    <path d="M156 32 L166 32 L166 42" fill="none"/>
+    <!-- bottom-left -->
+    <path d="M34 102 L34 112 L44 112" fill="none"/>
+    <!-- bottom-right -->
+    <path d="M156 112 L166 112 L166 102" fill="none"/>
+  </g>
+
+  <!-- paperclip icon (centered) -->
+  <g transform="translate(100 64)">
+    <!-- paperclip body: classic bent shape, ~28px tall -->
+    <path d="M -8 -16
+             a 8 8 0 0 1 16 0
+             L 8 10
+             a 4 4 0 0 1 -8 0
+             L 0 -10"
+          fill="none"
+          stroke="url(#esAttGold)"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+    <!-- inner shadow stroke for depth -->
+    <path d="M -8 -16
+             a 8 8 0 0 1 16 0
+             L 8 10
+             a 4 4 0 0 1 -8 0
+             L 0 -10"
+          fill="none"
+          stroke="#fff"
+          stroke-opacity="0.30"
+          stroke-width="1"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          transform="translate(0.6 0.6)"/>
+  </g>
+
+  <!-- "drag files here" arrow (small, gold, pointing into the zone) -->
+  <g stroke="url(#esAttGold)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- curved arrow tail entering from bottom-right corner area -->
+    <path d="M 158 102 C 152 102 148 100 144 96"
+          stroke-width="2"
+          stroke-dasharray="2.5 2.5"/>
+    <!-- arrowhead pointing up-left into the box -->
+    <path d="M 144 96 L 148 95 M 144 96 L 145 92"
+          stroke-width="2"/>
+  </g>
+
+  <!-- small file ghost shapes outside the zone (the "files to drag") -->
+  <g>
+    <rect x="40" y="120" width="14" height="10" rx="1.5"
+          fill="currentColor" fill-opacity="0.10"
+          stroke="currentColor" stroke-opacity="0.35"
+          stroke-width="1" stroke-dasharray="2 2"/>
+    <rect x="58" y="120" width="14" height="10" rx="1.5"
+          fill="currentColor" fill-opacity="0.10"
+          stroke="currentColor" stroke-opacity="0.35"
+          stroke-width="1" stroke-dasharray="2 2"/>
+  </g>
+
+  <!-- tiny sparkle accent -->
+  <g stroke="url(#esAttGold)" stroke-linecap="round" stroke-width="1.8" opacity="0.85">
+    <line x1="154" y1="44" x2="154" y2="50"/>
+    <line x1="151" y1="47" x2="157" y2="47"/>
+  </g>
+</svg>
