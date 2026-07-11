@@ -201,6 +201,20 @@ npm run lint          # ESLint (next/core-web-vitals + next/typescript)
 - **zod** — validation
 - **vitest** — unit tests
 
+## Design system
+
+Boardspace follows an **Apple-grade** visual language — the same one you'd see in Notes, Reminders, or Files:
+
+- **Typography:** [Geist Sans](https://vercel.com/font) (Vercel's SF-Pro successor, MIT-licensed) — self-hosted as a variable woff2 via `next/font/local`, zero runtime network. Geist is metrically compatible with SF Pro and renders cleanly as a non-Apple-platform drop-in.
+- **Color:** Apple systemBlue (`#007AFF` light / `#0A84FF` dark) is the only saturated color. Everything else is grayscale + Apple's semantic colors (systemRed for danger, systemOrange for warn, systemGreen for success).
+- **Material:** Liquid Glass surface (translucent, hairline border, `backdrop-filter: blur(20px) saturate(180%)`) on the top toolbar.
+- **Motion:** Apple spring curve `cubic-bezier(0.28, 0.11, 0.32, 1)` for transitions. Hover lifts 1px, active scales to 0.985.
+- **Spacing:** 4-based scale (4, 8, 12, 16, 20, 24, 32, 40, 48, 56, 64).
+- **Radius:** 5-step scale — 4 / 8 / 12 / 16 / 24 / 9999 (pill).
+- **Accessibility:** all touch targets ≥ 44×44 (Apple HIG). `prefers-reduced-motion` and `prefers-reduced-transparency` honored.
+
+Design tokens live in [`src/app/tokens.css`](./src/app/tokens.css). Component CSS uses CSS variables — no hard-coded colors.
+
 ## License
 
 MIT
