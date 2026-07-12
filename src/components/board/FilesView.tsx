@@ -696,7 +696,7 @@ function BlockRow({
                 className={styles.annMarker}
                 style={
                   {
-                    ["--marker-delay" as any]: `${i * 0.15}s`,
+                    "--marker-delay": `${i * 0.15}s`,
                   } as React.CSSProperties
                 }
                 onClick={(ev) => {
@@ -1009,10 +1009,10 @@ export default function FilesView() {
           setFileContent(null);
           setFileContentError(res.error ?? "Could not load this file.");
         }
-      } catch (e: any) {
+      } catch (e) {
         if (cancelled) return;
         setFileContent(null);
-        setFileContentError(e?.message ?? "Could not load this file.");
+        setFileContentError(e instanceof Error ? e.message : "Could not load this file.");
       } finally {
         if (!cancelled) setFileContentLoading(false);
       }
@@ -1154,11 +1154,11 @@ export default function FilesView() {
             p.id === uploadId ? { ...p, state: "done" } : p,
           ),
         );
-      } catch (e: any) {
+      } catch (e) {
         setUploads((u) =>
           u.map((p) =>
             p.id === uploadId
-              ? { ...p, state: "error", error: e?.message ?? "failed" }
+              ? { ...p, state: "error" as const, error: e instanceof Error ? e.message : "failed" }
               : p,
           ),
         );
@@ -2069,6 +2069,7 @@ function TreeList({
           <div key={`file-${node.id}`} style={{ paddingLeft: depth * 14 }}>
             <div
               role="treeitem"
+              aria-selected={selectedFileId === node.id}
               className={`${styles.treeRow} ${styles.row} ${
                 selectedFileId === node.id ? styles.selected : ""
               }`}

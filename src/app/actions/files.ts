@@ -38,10 +38,9 @@ import {
   updateAnnotation as repoUpdateAnn,
   deleteAnnotation as repoDeleteAnn,
 } from "@/db/repo";
-import type { FileItem, FileNode, Annotation, Folder } from "@/lib/files";
+import type { FileItem, Folder, Annotation, FileNode } from "@/lib/files";
 import { writeFile, mkdir } from "node:fs/promises";
-import { join, dirname } from "node:path";
-import { existsSync } from "node:fs";
+import { join } from "node:path";
 
 const FILES_ROOT = "data/files";
 function filesRoot(): string {
@@ -62,8 +61,8 @@ export async function createFolderAction(
   if (!raw?.name?.trim()) return fail("Folder name is required");
   try {
     return { ok: true, data: createFolder(raw.name, raw.parentId) };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not create folder");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not create folder");
   }
 }
 
@@ -74,8 +73,8 @@ export async function renameFolderAction(
   if (!raw?.id || !raw?.name?.trim()) return fail("Invalid input");
   try {
     return { ok: true, data: renameFolder(raw.id, raw.name) };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not rename folder");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not rename folder");
   }
 }
 
@@ -87,8 +86,8 @@ export async function deleteFolderAction(
   try {
     deleteFolder(id);
     return { ok: true, data: null };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not delete folder");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not delete folder");
   }
 }
 
@@ -126,8 +125,8 @@ export async function uploadFileAction(
     const bytes = new Uint8Array(await file.arrayBuffer());
     const created = await repoCreateFile({ name, bytes, folderId });
     return { ok: true, data: created };
-  } catch (e: any) {
-    return fail(e?.message ?? "Upload failed");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Upload failed");
   }
 }
 
@@ -138,8 +137,8 @@ export async function renameFileAction(
   if (!raw?.id || !raw?.name?.trim()) return fail("Invalid input");
   try {
     return { ok: true, data: repoRenameFile(raw.id, raw.name) };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not rename file");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not rename file");
   }
 }
 
@@ -150,8 +149,8 @@ export async function moveFileAction(
   if (!raw?.id) return fail("Invalid input");
   try {
     return { ok: true, data: repoMoveFile(raw.id, raw.folderId ?? null) };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not move file");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not move file");
   }
 }
 
@@ -163,8 +162,8 @@ export async function trashFileAction(
   try {
     repoTrashFile(id);
     return { ok: true, data: null };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not trash file");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not trash file");
   }
 }
 
@@ -175,8 +174,8 @@ export async function restoreFileAction(
   if (!Number.isInteger(id)) return fail("Invalid id");
   try {
     return { ok: true, data: repoRestoreFile(id) };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not restore file");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not restore file");
   }
 }
 
@@ -192,8 +191,8 @@ export async function createTextFileAction(
       ok: true,
       data: await repoCreateFile({ name: raw.name, bytes, folderId: raw.folderId }),
     };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not create file");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not create file");
   }
 }
 
@@ -207,8 +206,8 @@ export async function attachFileToTaskAction(
   try {
     repoAttach(raw.fileId, raw.taskId);
     return { ok: true, data: null };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not attach");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not attach");
   }
 }
 
@@ -261,8 +260,8 @@ export async function createAnnotationAction(
         color: raw.color ?? null,
       }),
     };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not create annotation");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not create annotation");
   }
 }
 
@@ -276,8 +275,8 @@ export async function updateAnnotationAction(
       ok: true,
       data: repoUpdateAnn(raw.id, raw.body, raw.color ?? null),
     };
-  } catch (e: any) {
-    return fail(e?.message ?? "Could not update annotation");
+  } catch (e) {
+    return fail(e instanceof Error ? e.message : "Could not update annotation");
   }
 }
 
