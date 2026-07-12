@@ -66,6 +66,8 @@ npm run dev
 
 Open **http://localhost:3000**.
 
+> **Note on local builds:** `npm run build` produces a regular Next.js build (`.next/`) suitable for `npm start`. The standalone artifact at `.next/standalone/server.js` that you may see referenced in some places is **only** emitted by the Docker multi-stage build, not by local `npm run build`. If you want to inspect or run a standalone server locally, use `manage.sh prod-build` or build the Docker image — don't try `node .next/standalone/server.js` from a local checkout; you'll get `MODULE_NOT_FOUND`.
+
 ## Security model
 
 Security was a primary design goal. This is a **single-user app** — once you create your account, registration is permanently closed.
@@ -153,9 +155,19 @@ An interactive helper for Docker **and** local dev operations. Run `./manage.sh`
 Under Docker, everything lives in the `todo-data` volume. Back up with:
 
 ```bash
-# Snapshot the volume
+# Manual one-off snapshot (recommended path)
+./manage.sh docker-backup
+
+# Or invoke directly
 docker run --rm -v boardspace_board-data:/data -v "$PWD":/backup alpine \
   tar czf /backup/todo-backup-$(date +%F).tgz -C /data .
+```
+
+**Scheduled backups** — `manage.sh` is the operator surface; schedule it from your host's cron / systemd timer, not from inside the container. The container is `read_only: true` and runs no cron daemon. Example crontab entry (host-level):
+
+```cron
+# Daily at 03:15 — backup the Docker volume, retain last 30 days
+15 3 * * *  cd /opt/boardspace && find /var/backups/boardspace -name 'boardspace-backup-docker-*.tgz' -mtime +30 -delete; ./manage.sh docker-backup
 ```
 
 Or use **Export** in the app header for a portable JSON snapshot (restorable via **Import** on any install).

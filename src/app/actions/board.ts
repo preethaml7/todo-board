@@ -323,7 +323,7 @@ export async function importBoardAction(
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     
-    let rawObj: any = null;
+    let rawObj: unknown = null;
     
     // Check if it's a zip by signature PK\x03\x04
     if (buffer.length >= 4 && buffer[0] === 0x50 && buffer[1] === 0x4b && buffer[2] === 0x03 && buffer[3] === 0x04) {
@@ -355,9 +355,9 @@ export async function importBoardAction(
       rawObj = JSON.parse(buffer.toString("utf8"));
     }
 
-    const obj = rawObj as Record<string, any>;
+    const obj = rawObj as Record<string, unknown>;
     const isV1 = obj.version === 1 && Array.isArray(obj.tasks);
-    const isV2 = obj.version === 2 && obj.data && Array.isArray(obj.data.tasks);
+    const isV2 = obj.version === 2 && obj.data && Array.isArray((obj.data as Record<string, unknown>).tasks);
 
     if (!isV1 && !isV2) {
       return fail("That file doesn't look like a valid board export.");

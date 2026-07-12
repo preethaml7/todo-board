@@ -33,8 +33,8 @@ export async function GET() {
         "Content-Disposition": `attachment; filename="boardspace-export-${new Date().toISOString().slice(0, 10)}.zip"`,
       },
     });
-  } catch (err: any) {
-    if (err.message === "Unauthorized") {
+  } catch (err) {
+    if (err instanceof Error && err.message === "Unauthorized") {
       return new NextResponse("Unauthorized", { status: 401 });
     }
     console.error("Export error:", err);

@@ -39,6 +39,14 @@ export function logSecurityEvent(
 // Coarse per-IP throttle for auth endpoints, complementing the per-account
 // lockout in rate-limit.ts. In-memory is sufficient for a single instance;
 // Cloudflare handles volumetric abuse upstream.
+//
+// IMPORTANT: This state lives only in this process. If you ever scale
+// Boardspace to multiple replicas behind a load balancer, every replica
+// will keep its own counter, effectively giving each attacker N×the
+// attempts. At that point, replace this with a shared store (Redis,
+// the existing SQLite database, etc.) BEFORE adding a second replica.
+// See docs/architecture-decisions/ for the threshold that triggered this
+// note.
 
 const WINDOW_MS = 5 * 60_000;
 const MAX_HITS = 30;

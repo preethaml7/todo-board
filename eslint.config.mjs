@@ -10,6 +10,7 @@ const config = [
       "next-env.d.ts",
       "scripts/**",
       "**/*.test.ts",
+      "**/*.test.tsx",
     ],
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
