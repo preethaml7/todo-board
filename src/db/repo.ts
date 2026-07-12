@@ -4,7 +4,6 @@ import type {
   Attachment,
   BoardData,
   BoardExport,
-  BoardExportV2,
   Category,
   Chip,
   LifeArea,
@@ -17,8 +16,6 @@ import { createHash } from "node:crypto";
 import {
   writeFile,
   mkdir,
-  copyFile,
-  unlink,
   readFile as fsReadFile,
 } from "node:fs/promises";
 import {
@@ -652,13 +649,19 @@ export function importBoard(data: BoardExport) {
 
       for (const t of data.tasks ?? []) {
         // v1 used 'blocked'/'deferred' which are invalid in v5. Map them to 'onhold'.
-        let status = t.status as string;
-        if (status === 'blocked' || status === 'deferred') status = 'onhold';
+        // We coerce to string first because v1 exports may contain values
+        // outside the current Status enum; the strict type was always
+        // narrower than the data we accept from disk.
+        const rawStatus: string = String((t as { status?: unknown }).status ?? "");
+        const status: Status =
+          rawStatus === "blocked" || rawStatus === "deferred"
+            ? "onhold"
+            : (rawStatus as Status);
 
         const created = createTask({
           title: t.title,
           life_area: t.life_area,
-          status: status as any,
+          status,
           priority: t.priority,
           owner: t.owner,
           due_date: t.due_date,

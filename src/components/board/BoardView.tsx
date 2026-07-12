@@ -167,7 +167,7 @@ export default function BoardView({ onSeed }: { onSeed: () => void }) {
         </div>
 
         <details className="empty-state-details">
-          <summary>What's in each column?</summary>
+          <summary>What&rsquo;s in each column?</summary>
           <div className="column-tour">
             <div><span className="col-pill col-backlog">Backlog</span> ideas and someday</div>
             <div><span className="col-pill col-todo">To Do</span> committed, not started</div>

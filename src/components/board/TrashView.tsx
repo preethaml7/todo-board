@@ -76,7 +76,7 @@ export default function TrashView({
             />
             <h3 style={{ fontSize: 17 }}>Trash is empty.</h3>
             <p style={{ marginBottom: 0 }}>
-              Tasks you delete show up here for 30 days. Then they're gone for good.
+              Tasks you delete show up here for 30 days. Then they&rsquo;re gone for good.
             </p>
           </div>
         ) : (

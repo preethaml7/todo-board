@@ -17,7 +17,6 @@ data
 # VCS / tooling
 .git
 .gitignore
-.claude
 .vscode
 .idea
 

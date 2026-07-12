@@ -7,6 +7,8 @@
 /.next/
 /out/
 next-env.d.ts
+# TypeScript incremental build cache (auto-regenerated on every build)
+*.tsbuildinfo
 
 # production
 /build
@@ -31,7 +33,6 @@ todo-backup-*.tgz
 .registry
 
 # misc
-.claude/
 .DS_Store
 *.pem
 npm-debug.log*
@@ -42,3 +43,4 @@ yarn-error.log*
 
 # original inspiration images
 *.heic
+docs/

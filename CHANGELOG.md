@@ -2,6 +2,21 @@
 
 All notable changes to Boardspace are documented here. Dates are US Central (America/Chicago).
 
+## v1.1.1 — 2026-07-12
+
+### Housekeeping
+
+- **Lint gate honest again.** v1.1.0 shipped with 27 ESLint errors hidden behind a passing `next build`. v1.1.1 fixes all of them: production `any` types replaced with `unknown` + narrow, unescaped apostrophes replaced with `&rsquo;`, real a11y defect (`role="treeitem"` without `aria-selected`) corrected in FilesView, dead exports removed (`BoardExportV2`, `copyFile`, `unlink`), unused imports cleaned up across server actions. The `*.test.tsx` ignore pattern was added to the ESLint config (matching the existing `*.test.ts` ignore) — tests are intentionally lenient with `any`, production code is not.
+- **`.gitignore` hygiene.** `tsconfig.tsbuildinfo` (a TypeScript incremental build cache auto-regenerated on every build) was previously tracked in git at 187KB. Now ignored; the existing tracked copy has been removed.
+- **FilesView a11y.** `FilesView.tsx` had two `role="treeitem"` elements without `aria-selected`. Added. This was a real defect for screen-reader users — they could navigate the tree but not tell which item was selected.
+- **Security note.** Added an explicit warning comment to `src/lib/security.ts` about the in-memory IP throttle: it's per-process, and would silently degrade to N×the attempts if anyone ever ran multiple replicas. The note points to the upgrade path (shared store) before adding a second replica.
+- **Backup automation documented.** README now documents how to schedule `./manage.sh docker-backup` from a host-level cron entry, with a 30-day retention example. The container is `read_only: true` and runs no cron daemon by design — the operator surface is `manage.sh`, not the container.
+- **Local-vs-Docker build note.** README explains that `.next/standalone/server.js` is only emitted by the Docker multi-stage build, not by local `npm run build` — saves the next contributor from a `MODULE_NOT_FOUND` surprise.
+
+### Notes on v1.1.0 design polish
+
+v1.1.1 also acknowledges that the v1.1.0 design polish migration left a few cosmetic class-name remnants in `FilesView.module.css` (the `gold` class identifier for what is in fact a systemBlue accent, plus the `.annotationLineTag` class in dark mode which uses `#FCD34D` for the marker text). These are deliberate stylistic choices — a yellow accent on annotation markers in dark mode — but they do mean the v1.1.0 claim "everything is systemBlue" is not strictly true. Future work may rename `.gold` → `.accent` and either migrate `.annotationLineTag` to systemBlue or document the deliberate exception.
+
 ## v1.1.0 — 2026-07-11
 
 ### Design polish
