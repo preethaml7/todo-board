@@ -307,6 +307,23 @@ export function MarketingPage({ variant }: Props) {
             </span>
           </div>
         </div>
+        <div className={styles.footerCredits}>
+          <span>
+            Built by{" "}
+            <a
+              href="https://protopanda.io"
+              className={styles.footerCreditLink}
+              rel="noopener"
+              target="_blank"
+            >
+              proto🐼panda.io
+            </a>
+          </span>
+          <span className={styles.footerDot} aria-hidden>
+            ·
+          </span>
+          <span>© {new Date().getFullYear()} Boardspace</span>
+        </div>
       </footer>
     </div>
   );
