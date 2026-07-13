@@ -155,11 +155,7 @@ export function MarketingPage({ variant }: Props) {
                 {primaryCta}
                 <ArrowRightIcon />
               </Link>
-              {variant === "returning" ? (
-                <Link href="/login" className={styles.btnText}>
-                  Sign in instead
-                </Link>
-              ) : (
+              {variant === "fresh" && (
                 <a href="#features" className={styles.btnText}>
                   See what&apos;s inside →
                 </a>
@@ -256,9 +252,11 @@ export function MarketingPage({ variant }: Props) {
                 {primaryCta}
                 <ArrowRightIcon />
               </Link>
-              <Link href="/login" className={styles.btnText}>
-                Sign in
-              </Link>
+              {variant === "fresh" && (
+                <a href="#features" className={styles.btnText}>
+                  Learn more
+                </a>
+              )}
             </div>
           </div>
         </section>
@@ -308,6 +306,23 @@ export function MarketingPage({ variant }: Props) {
               Argon2id · local-only · zero outbound network
             </span>
           </div>
+        </div>
+        <div className={styles.footerCredits}>
+          <span>
+            Built by{" "}
+            <a
+              href="https://protopanda.io"
+              className={styles.footerCreditLink}
+              rel="noopener"
+              target="_blank"
+            >
+              proto🐼panda.io
+            </a>
+          </span>
+          <span className={styles.footerDot} aria-hidden>
+            ·
+          </span>
+          <span>© {new Date().getFullYear()} Boardspace</span>
         </div>
       </footer>
     </div>

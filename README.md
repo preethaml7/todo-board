@@ -180,19 +180,25 @@ You only need a `.env` if you want to override a default:
 | --- | --- | --- |
 | `SESSION_SECRET` | auto-generated | Pin a fixed secret (≥ 32 chars). Useful for multi-host setups |
 | `ALLOWED_ORIGINS` | same-origin | Comma-separated origins if behind a host-rewriting proxy, e.g. `https://todo.example.com` |
-| `TRUSTED_PROXY_SECRET` | off | Defence in depth: every request must carry `X-Proxy-Secret: <value>` or get 403'd. Have Cloudflare inject it |
-| `ALLOW_INSECURE_COOKIES` | off | **Never in prod.** Local-only escape hatch to test production builds over `http://localhost` |
+| `TRUSTED_PROXY_SECRET` | off | Defence in depth: every request must carry `X-Proxy-Secret: <value>` or get 403'd. Optional — only enable if you're behind a reverse proxy that can inject this header. |
 
-## Exposing with Cloudflare Tunnel
+## Network binding
 
-The container binds to `127.0.0.1:3000` only — never exposed on your LAN/WAN directly. Use a **Cloudflare Tunnel** to reach it:
+By default the container listens on `0.0.0.0:3000`, which means it is reachable on every network interface the host has. To reach it from your LAN:
 
-1. Run `cloudflared` on the same host, pointing `todo.example.com` → `http://127.0.0.1:3000`.
-2. Set `ALLOWED_ORIGINS=https://todo.example.com` in `.env`.
-3. **Recommended hardening:**
-   - Put **Cloudflare Access** (Zero Trust) in front — a second auth layer before the app's own login.
-   - Set `TRUSTED_PROXY_SECRET` and add a Cloudflare Transform Rule to inject the matching header.
-   - Keep your IP-allowlist / WAF rules.
+- From the host: `http://localhost:3000` or `http://127.0.0.1:3000`
+- From another machine on the same LAN: `http://<host-ip>:3000` (e.g. `http://192.168.1.124:3000`)
+
+To restrict the bind address (for example, to LAN only and not the WAN), set the `HOSTNAME` env var in `docker-compose.yml`:
+
+```yaml
+environment:
+  - HOSTNAME=192.168.1.124  # or any single interface IP
+```
+
+If you want a different port, set `PORT=8080` (or any value) in the same env block.
+
+If you choose to put a reverse proxy (nginx, Caddy, Traefik, Tailscale, VPN, etc.) in front, the proxy can handle TLS termination, auth, and rate limiting. The app will run fine behind any of them — set `TRUSTED_PROXY_SECRET` if you want defense-in-depth, and pass the real client IP via `X-Forwarded-For`.
 
 ## Tests
 
