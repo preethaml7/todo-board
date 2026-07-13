@@ -779,3 +779,34 @@
     transform: none;
   }
 }
+/* ===== footer credits — small "Built by" line ===== */
+.footerCredits {
+  margin-top: 18px;
+  padding-top: 14px;
+  width: 100%;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footerCreditLink {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px dashed currentColor;
+  padding-bottom: 1px;
+  transition: color 120ms ease;
+}
+
+.footerCreditLink:hover {
+  color: var(--accent-400);
+  border-bottom-color: transparent;
+}
+
+.footerDot {
+  opacity: 0.55;
+}
