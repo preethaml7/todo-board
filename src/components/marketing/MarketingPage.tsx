@@ -155,11 +155,7 @@ export function MarketingPage({ variant }: Props) {
                 {primaryCta}
                 <ArrowRightIcon />
               </Link>
-              {variant === "returning" ? (
-                <Link href="/login" className={styles.btnText}>
-                  Sign in instead
-                </Link>
-              ) : (
+              {variant === "fresh" && (
                 <a href="#features" className={styles.btnText}>
                   See what&apos;s inside →
                 </a>
@@ -256,9 +252,11 @@ export function MarketingPage({ variant }: Props) {
                 {primaryCta}
                 <ArrowRightIcon />
               </Link>
-              <Link href="/login" className={styles.btnText}>
-                Sign in
-              </Link>
+              {variant === "fresh" && (
+                <a href="#features" className={styles.btnText}>
+                  Learn more
+                </a>
+              )}
             </div>
           </div>
         </section>
