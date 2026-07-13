@@ -5,7 +5,7 @@ import { sessionCookieName } from "@/lib/session-constants";
  * Responsibilities:
  *  1. Optional trusted-proxy gate — when TRUSTED_PROXY_SECRET is set, only
  *     requests carrying the matching header are served (defence-in-depth so a
- *     direct hit on the origin, bypassing Cloudflare, is rejected).
+ *     direct hit on the origin, bypassing a configured reverse proxy, is rejected).
  *  2. A per-request CSP nonce (production) so no 'unsafe-inline' scripts are
  *     needed — a strong XSS mitigation.
  *  3. Security headers on every response.
@@ -40,12 +40,18 @@ function constantTimeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
-function buildCsp(nonce: string): string {
+function buildCsp(req: NextRequest | null, nonce: string): string {
   // Scripts: nonce + strict-dynamic in production removes 'unsafe-inline'.
   // Dev needs 'unsafe-eval'/'unsafe-inline' for HMR / React Refresh.
   const scriptSrc = isProd
     ? `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`
     : "script-src 'self' 'unsafe-inline' 'unsafe-eval'";
+
+  // upgrade-insecure-requests only makes sense over HTTPS — sending it on
+  // plain HTTP causes browsers to upgrade asset URLs to https://, which
+  // breaks LAN deployments without TLS. Skip it for plain HTTP requests.
+  const upgradeInsecure =
+    req !== null && isTlsSecuredFn(req) ? "upgrade-insecure-requests" : "";
 
   return [
     "default-src 'self'",
@@ -59,8 +65,19 @@ function buildCsp(nonce: string): string {
     "base-uri 'self'",
     "form-action 'self'",
     "frame-ancestors 'none'",
-    "upgrade-insecure-requests",
-  ].join("; ");
+    upgradeInsecure,
+  ]
+    .filter(Boolean)
+    .join("; ");
+}
+
+// TLS detection — duplicated as a non-method helper so buildCsp can use it
+// without taking a full NextRequest object (useful in tests).
+function isTlsSecuredFn(req: NextRequest): boolean {
+  if (req.nextUrl.protocol === "https:") return true;
+  const xfp = req.headers.get("x-forwarded-proto");
+  if (xfp) return xfp.split(",")[0]!.trim().toLowerCase() === "https";
+  return false;
 }
 
 function setSecurityHeaders(res: NextResponse, csp: string): NextResponse {
@@ -75,19 +92,38 @@ function setSecurityHeaders(res: NextResponse, csp: string): NextResponse {
     "Permissions-Policy",
     "camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=()",
   );
-  if (isProd) {
-    res.headers.set(
-      "Strict-Transport-Security",
-      "max-age=63072000; includeSubDomains; preload",
-    );
-  }
+  // HSTS is only meaningful over HTTPS. The header is set in `setStrictTransport`
+  // when the request is detected as TLS-secured (either directly, or via a
+  // trusted proxy that set x-forwarded-proto=https).
+  return res;
+}
+
+/**
+ * Set HSTS only when the request is actually TLS-secured. Sending HSTS over
+ * HTTP causes browsers to remember the host as HTTPS-only and block future
+ * HTTP access — which breaks local/LAN HTTP deployments. Only opt in via
+ * `STRICT_TRANSPORT_SECURITY=on` if you also want the header when the
+ * request is plain HTTP (rare; mainly for testing).
+ */
+function setStrictTransport(
+  res: NextResponse,
+  req: NextRequest
+): NextResponse {
+  const forceOn =
+    process.env.STRICT_TRANSPORT_SECURITY === "on" ||
+    process.env.STRICT_TRANSPORT_SECURITY === "1";
+  if (!forceOn && !isTlsSecuredFn(req)) return res;
+  res.headers.set(
+    "Strict-Transport-Security",
+    "max-age=63072000; includeSubDomains; preload"
+  );
   return res;
 }
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const nonce = makeNonce();
-  const csp = buildCsp(nonce);
+  const csp = buildCsp(req, nonce);
 
   // 1. Trusted-proxy gate (health check is always exempt so container/uptime
   //    probes work without the secret).
@@ -95,13 +131,16 @@ export function middleware(req: NextRequest) {
   if (proxySecret && pathname !== HEALTH_PATH) {
     const provided = req.headers.get("x-proxy-secret") ?? "";
     if (!constantTimeEqual(provided, proxySecret)) {
-      return setSecurityHeaders(new NextResponse("Forbidden", { status: 403 }), csp);
+      return setStrictTransport(
+        setSecurityHeaders(new NextResponse("Forbidden", { status: 403 }), csp),
+        req
+      );
     }
   }
 
   // Health endpoint: no auth, minimal.
   if (pathname === HEALTH_PATH) {
-    return setSecurityHeaders(NextResponse.next(), csp);
+    return setStrictTransport(setSecurityHeaders(NextResponse.next(), csp), req);
   }
 
   // 2. Auth gate.
@@ -110,7 +149,10 @@ export function middleware(req: NextRequest) {
     const url = req.nextUrl.clone();
     url.pathname = "/login";
     url.search = "";
-    return setSecurityHeaders(NextResponse.redirect(url), csp);
+    return setStrictTransport(
+      setSecurityHeaders(NextResponse.redirect(url), csp),
+      req
+    );
   }
 
   // 3. Forward nonce + CSP on the request headers so Next tags its own inline
@@ -120,7 +162,7 @@ export function middleware(req: NextRequest) {
   requestHeaders.set("Content-Security-Policy", csp);
 
   const res = NextResponse.next({ request: { headers: requestHeaders } });
-  return setSecurityHeaders(res, csp);
+  return setStrictTransport(setSecurityHeaders(res, csp), req);
 }
 
 export const config = {

@@ -2,15 +2,12 @@ import "server-only";
 import { headers } from "next/headers";
 
 /**
- * Resolve the real client IP when running behind a trusted proxy
- * (Cloudflare Tunnel sets `CF-Connecting-IP`). Falls back to the first
- * `X-Forwarded-For` hop, then `X-Real-IP`. Used for throttling and logging
- * only — never for authorization.
+ * Resolve the real client IP from common proxy headers.
+ * Used for throttling and logging only — never for authorization.
+ * Falls back to the first `X-Forwarded-For` hop, then `X-Real-IP`.
  */
 export async function getClientIp(): Promise<string> {
   const h = await headers();
-  const cf = h.get("cf-connecting-ip");
-  if (cf) return cf.trim();
   const xff = h.get("x-forwarded-for");
   if (xff) return xff.split(",")[0]!.trim();
   return h.get("x-real-ip")?.trim() || "unknown";
@@ -38,7 +35,7 @@ export function logSecurityEvent(
 /* ------------------------- in-memory IP throttle ----------------------- */
 // Coarse per-IP throttle for auth endpoints, complementing the per-account
 // lockout in rate-limit.ts. In-memory is sufficient for a single instance;
-// Cloudflare handles volumetric abuse upstream.
+// put a reverse proxy with rate-limiting in front if you need more.
 //
 // IMPORTANT: This state lives only in this process. If you ever scale
 // Boardspace to multiple replicas behind a load balancer, every replica
